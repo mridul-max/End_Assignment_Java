@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import nl.inholland.university.endassignment.data.DataSeed;
 import nl.inholland.university.endassignment.data.UserDao;
 import nl.inholland.university.endassignment.models.Person;
 import nl.inholland.university.endassignment.ui.DashboardScene;
@@ -16,6 +17,7 @@ public class LoginWindow {
     private Stage stage;
     private UserDao userDao;
     public Stage getStage() {
+
         return stage;
     }
 
@@ -41,7 +43,7 @@ public class LoginWindow {
             loginbutton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    userDao = new UserDao();
+                    userDao = new UserDao(DataSeed.getDbInstance());
                     String userName = userField.getText();
                     String password = passwordfield.getText();
                     if(userName.isBlank()||password.isBlank()){

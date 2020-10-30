@@ -1,5 +1,9 @@
 package nl.inholland.university.endassignment.ui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -9,9 +13,11 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import nl.inholland.university.endassignment.models.OrderItem;
 import nl.inholland.university.endassignment.models.Person;
 import nl.inholland.university.endassignment.models.Role;
 import nl.inholland.university.endassignment.ui.scenes.CreateOrderScene;
+import nl.inholland.university.endassignment.ui.scenes.OrderDetailsScene;
 
 import java.time.format.DateTimeFormatter;
 
@@ -58,6 +64,10 @@ public class DashboardScene {
                 createOrderScene.getStage().show();
             });
             MenuItem listOrder = new MenuItem("List Orders");
+            listOrder.setOnAction(actionEvent -> {
+                OrderDetailsScene orderDetailsScene = new OrderDetailsScene();
+                orderDetailsScene.getStage().show();
+            });
             sales.getItems().addAll(order,listOrder);
             menuBar.getMenus().addAll(home,sales);
         }
@@ -65,6 +75,13 @@ public class DashboardScene {
             Menu manager = new Menu("Sales");
             Menu stock   = new Menu("Stock");
             MenuItem listOrder = new MenuItem("List Orders");
+            listOrder.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    OrderDetailsScene orderDetailsScene = new OrderDetailsScene();
+                    orderDetailsScene.getStage().show();
+                }
+            });
             MenuItem maintain = new MenuItem("Maintain");
             manager.getItems().addAll(listOrder);
             stock.getItems().addAll(maintain);

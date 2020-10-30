@@ -2,6 +2,7 @@ package nl.inholland.university.endassignment;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import nl.inholland.university.endassignment.data.DataSeed;
 import nl.inholland.university.endassignment.ui.applicationwindow.LoginWindow;
 
 public class App extends Application {

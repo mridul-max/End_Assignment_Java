@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import nl.inholland.university.endassignment.data.DataSeed;
 import nl.inholland.university.endassignment.data.UserDao;
 import nl.inholland.university.endassignment.models.Article;
 import nl.inholland.university.endassignment.models.Customer;
@@ -31,11 +32,11 @@ public class CustomerListScene {
     public Stage getStage() {
         return stage;
     }
-    UserDao userDao = new UserDao();
+    UserDao userDao = new UserDao(DataSeed.getDbInstance());
     private  CreateOrderScene orderScene;
     public CustomerListScene(CreateOrderScene createOrderScene){
         stage = new Stage();
-        orderScene = createOrderScene;
+        this.orderScene = createOrderScene;
         VBox layout = new VBox();
         layout.setPadding(new Insets(30));
         layout.setSpacing(20);
@@ -53,6 +54,7 @@ public class CustomerListScene {
                 customers = customerTableView.getSelectionModel().getSelectedItems();
                 Customer selectedCustomer = (Customer)customers.get(0);
                 orderScene.customerInfo(selectedCustomer);
+                stage.close();
 
             }
         });
@@ -90,10 +92,10 @@ public class CustomerListScene {
         phoneNumber.setMinWidth(50);
         phoneNumber.setCellValueFactory(new PropertyValueFactory<Customer, String>("phoneNumber"));
 
-        TableColumn emaill = new TableColumn("Email");
-        emaill.setMinWidth(100);
-        emaill.setCellValueFactory(new PropertyValueFactory<Customer, String>("email"));
-        customerTableView.getColumns().addAll(firstName,lastName,streetAddress,city,phoneNumber,emaill);
+        TableColumn email = new TableColumn("Email");
+        email.setMinWidth(100);
+        email.setCellValueFactory(new PropertyValueFactory<Customer, String>("email"));
+        customerTableView.getColumns().addAll(firstName,lastName,streetAddress,city,phoneNumber,email);
         ObservableList<Customer> customer  = FXCollections.observableArrayList(userDao.getCustomers());
         customerTableView.setItems(customer);
     }
